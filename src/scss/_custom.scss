@@ -1,0 +1,178 @@
+// Here you can add other styles
+.p-dropdown {
+    width: 100%;
+}
+.p-calendar {
+    width: 100%;
+}
+.p-datepicker table td {
+    padding: 0.1rem;
+}
+.p-datepicker table td {
+    padding: 2px;
+}
+.main .container-fluid {
+    padding: 5px;
+}
+.p-multiselect {
+    width: 100%;
+}
+.breadcrumb{
+    margin-bottom: 5px;
+}
+.card-header-actions .btn {
+    top: -5px;
+}
+.p-d-flex {
+    display: flex !important;
+}
+.p-component {
+    font-size: 12px;
+}
+.p-button.p-button-icon-only {
+    padding: 0.5rem 0.5rem;
+}
+.p-button {
+    margin: 0px 3px;
+}
+.p-ml-auto {
+    margin-left: auto !important;
+}
+.fdc {
+    flex-direction: column;
+}
+.p-ai-center {
+    align-items: center;
+}
+.p-jc-between {
+    justify-content: space-between;
+}
+.p-datatable .p-datatable-thead > tr > th {
+    padding: 0.1rem 0.5rem;
+}
+.pi {
+    font-size: 12px;
+}
+.card-body.datatable {
+    padding: 0rem;
+}
+.dropdown:hover>.dropdown-menu.dropdown-menu-right {
+    display: block !important;
+    top: 25px;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+    padding: 0.1rem 1rem;
+}
+.p-datatable-resizable>.p-datatable-wrapper {
+    min-height: 50vh;
+}
+.p-toast{
+    z-index: 9999999 !important;
+}
+.p-button.p-button-icon-only {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+.p-datatable-resizable .p-datatable-tbody>tr>td, .p-datatable-resizable .p-datatable-tfoot>tr>td, .p-datatable-resizable .p-datatable-thead>tr>th {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.p-password, .p-inputtext.p-component.p-password-input {
+    width: 100%;
+}
+.overfloweclips{
+
+    .p-inputnumber-input {
+        width: 100%;
+    }
+}
+.p-inputnumber {
+    display: inline-flex;
+    width: 100%;
+}
+.sfg{
+    .p-dialog .p-dialog-content{
+        height: 70vh;
+    }
+}
+.overfloweclips.two{
+    .p-treetable .p-treetable-thead > tr > th, .p-treetable .p-treetable-tbody > tr > td {
+        border-width: 1px 1px 1px 1px;
+        vertical-align: bottom;
+    }
+
+    tfoot.p-treetable-tfoot tr td {
+        background: #a2eff3 !important;
+        border: 1px solid #a2a2a2 !important;
+    }
+}
+
+.actualvsbudget{
+    .p-treetable table {
+        border-collapse: collapse;
+        width: auto ;
+        table-layout: fixed;
+    }
+    .rs {
+        min-width: 100px;
+    }
+}
+
+.ngx-file-drop__drop-zone {
+    border: 1px dashed #737373 !important;
+    border-radius: 0 !important;
+    height: 100px;
+    margin: auto;
+    a{
+        color: #737373 !important;
+    }
+}
+
+textarea {
+    width: 100%;
+    min-height: 50px;
+}
+
+.ts{
+    width: 150px !important;
+
+    .p-inputnumber-input{
+        width: 100% !important;
+    }
+}
+
+.badge.Replied  {
+    color: #fff;
+    background-color: #4dbd74;
+}
+.badge.Pending  {
+    color: #fff;
+    background-color: #ffc905;
+}
+.p-dialog .p-dialog-footer {
+    background: #ededed;
+    padding: 1.5rem;
+}
+.p-field.disable.edit{
+  cursor: not-allowed !important;
+}
+.p-field.disable.edit * {
+  pointer-events: none !important;
+  background: #eee;
+}
+.p-field.disable.edit label {
+  background:transparent;
+}
+
+
+.p-field.force-disable{
+  cursor: not-allowed !important;
+}
+.p-field.force-disable * {
+  pointer-events: none !important;
+  background: #eee;
+}
+.p-field.force-disable label {
+  background:transparent;
+}

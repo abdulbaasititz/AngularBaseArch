@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+      <div *ngFor="let dData of DbData" class="col-sm-{{dData.size}} mt-3">
+
+        <!--topcard-->
+        <div class="card text-white" *ngIf="dData.baseType == 'top-Card'" [style.background-color]="dData.cardColor[0].priColor" [style.background]="returnGradient(dData.cardColor[0])">
+          <div class="card-body pb-0">
+            <div class="text-value">9.823</div>
+            <div>{{dData.title}}</div>
+          </div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+            <canvas baseChart class="chart" [datasets]="lineChart1Data" [labels]="lineChart1Labels" [options]="returnOption(dData)" [colors]="returnChatColor(dData)" [legend]="returnChatLegend(dData)" [chartType]="returnChatType(dData)"></canvas>
+          </div>
+        </div>
+        <!--topcard-->
+        
+      </div>
+    </div>
+</div>

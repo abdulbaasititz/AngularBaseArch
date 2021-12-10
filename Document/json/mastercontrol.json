@@ -1,0 +1,21 @@
+{
+   "success":1,
+   "data":[
+      {
+         "name":"COA List",
+         "ID":23,
+         "PARENTID":22,
+         "parent":0,
+         "url":"/masterwindow",
+         "icon":"cil-file"
+      },
+      {
+         "name":"User Master",
+         "ID":2,
+         "PARENTID":31,
+         "parent":0,
+         "url":"/masterwindow",
+         "icon":"cil-group"
+      }
+   ]
+}

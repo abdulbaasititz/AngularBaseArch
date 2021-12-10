@@ -1,0 +1,32 @@
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+small, .small {
+    font-size: 80%;
+    font-weight: 400;
+    display: block;
+}
+input {
+    width: 100%;
+}
+.form-buttons{
+    position: absolute;
+    right: 25px;
+    i{
+        padding-left: 5px;
+        cursor: pointer;
+    }
+}
+.p-field-checkbox{
+    display: -webkit-box;
+    text-transform: capitalize;
+    margin-left: 15px;
+    label{
+        margin-left: 15px;
+    }
+}
+.error-msg{
+    color: red;
+}

@@ -1,0 +1,14 @@
+{
+   "success":1,
+   "data":{
+      "fieldCount":0,
+      "affectedRows":1,
+      "insertId":39,
+      "serverStatus":2,
+      "warningCount":1,
+      "message":"",
+      "protocol41":true,
+      "changedRows":0
+   },
+   "message":"Added successfully"
+}

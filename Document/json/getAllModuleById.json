@@ -1,0 +1,20 @@
+{
+   "success":1,
+   "data":[
+      {
+         "ID":5,
+         "PARENTID":1,
+         "MODULENAME":"Module Master",
+         "DESCRIPTION":0,
+         "URL":"/masterwindow",
+         "ICON":"cil-book",
+         "serviceName":"ModuleService",
+         "STATUS":1,
+         "SORT_ID":1,
+         "parent":0,
+         "CRBY":1,
+         "CRAT":"2021-06-08T09:21:13.000Z",
+         "UDAT":"2021-06-12T06:19:31.000Z"
+      }
+   ]
+}

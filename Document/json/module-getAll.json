@@ -1,0 +1,41 @@
+{
+   "success":1,
+   "data":[
+      {
+         "ID":26,
+         "PARENTID":25,
+         "MODULENAME":"Budget List",
+         "DESCRIPTION":0,
+         "URL":"/masterwindow",
+         "ICON":"cil-chevron-right",
+         "serviceName":"BudgetServicesService",
+         "STATUS":1,
+         "SORT_ID":1,
+         "parent":0,
+         "CRBY":1,
+         "CRAT":"2021-06-16T06:14:25.000Z",
+         "UDAT":"2021-06-16T07:31:17.000Z",
+         "createdby":"Shazvan Hanif",
+         "parentName":"Budget",
+         "statustext":"Active"
+      },
+      {
+         "ID":38,
+         "PARENTID":37,
+         "MODULENAME":"Item Master",
+         "DESCRIPTION":0,
+         "URL":"/masterwindow",
+         "ICON":"cil-industry",
+         "serviceName":"ItemmstService",
+         "STATUS":1,
+         "SORT_ID":1,
+         "parent":0,
+         "CRBY":1,
+         "CRAT":"2021-07-15T13:50:43.000Z",
+         "UDAT":"2021-07-15T16:27:16.000Z",
+         "createdby":"Shazvan Hanif",
+         "parentName":"Inventory",
+         "statustext":"Active"
+      }
+   ]
+}

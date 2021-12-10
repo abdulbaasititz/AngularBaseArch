@@ -1,0 +1,135 @@
+<div class="container" style="max-width: 210mm !important">
+  <div class="row">
+    <div class="col-12">
+      <button (click)="download()" class="btn btn-primary pull-right mb-2">
+        Download PDF
+      </button>
+    </div>
+    <div class="col-12" id="parentdiv">
+      <div class="card">
+        <div class="row text-white p-4" style="background: #262a2e">
+          <div class="col-4">
+            <img style="width: 100%;" src="{{RootService?.ProfileData?.logoLargeUrl}}" />
+          </div>
+          <div class="col-8 text-right">
+            <p>
+              {{RootService?.ProfileData?.addressOne}}
+            </p>
+            <p>
+              {{RootService?.ProfileData?.phoneNumber}} <br />
+              {{RootService?.ProfileData?.email}}
+            </p>
+          </div>
+        </div>
+
+        <div class="row p-4" style="background: #fff">
+          <div class="col-3">
+            <h6>Order No</h6>
+            <p>INS000{{ RootService.insurenceData.id }}</p>
+            <h6>Policy Start Date</h6>
+            <p>{{ RootService.insurenceData.policyStartDate }}</p>
+          </div>
+          <div class="col-9 text-right">
+            <h6>Bill To</h6>
+            <p>
+              {{ RootService.insurenceData.insurerFirstName }}
+              {{ RootService.insurenceData.insurerLastName }}, <br />
+              {{ RootService.insurenceData.insurerCountryCode
+              }}{{ RootService.insurenceData.insurerContactNumber }} <br />
+              {{ RootService.insurenceData.insurerEmail }}
+            </p>
+          </div>
+          <!-- <div class="col-6 text-right">
+            <h6>Invoice Total</h6>
+            <p style="font-size: 24px">
+              AED {{ RootService.insurenceData.carValue }}.00
+            </p>
+          </div> -->
+        </div>
+        <div class="row p-4" style="background: #fff">
+          <div class="col-12">
+            <table class="table">
+              <tr>
+                <th>Questions</th>
+                <th class="text-right">Answer</th>
+              </tr>
+              <tr>
+                <th>Car Name</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.carName }}
+                </td>
+              </tr>
+              <tr>
+                <th>Accident History Count</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.accidentHistoryCount }}
+                </td>
+              </tr>
+              <tr>
+                <th>Car Owner Age Range</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.carOwnerAgeRangeName }}
+                </td>
+              </tr>
+              <tr>
+                <th>Uae Driving License Age</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.uaeDrivingLicenseAgeName }}
+                </td>
+              </tr>
+
+              <tr>
+                <th>Car Insurance Type Name</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.carInsuranceTypeName }}
+                </td>
+              </tr>
+              <tr>
+                <th>Should Cover Agency Repair</th>
+                <td class="text-right">
+                  {{ RootService.insurenceData.shouldCoverAgencyRepair }}
+                </td>
+              </tr>
+              <tr>
+                <th>Insurer Driving License File</th>
+                <td class="text-right">
+                  <a
+                    href="{{
+                      RootService.insurenceData.insurerDrivingLicenseFileUrl
+                    }}"
+                    target="_blank"
+                    >{{RootService.insurenceData.insurerDrivingLicenseFileUrl == null? 'noData': 'View'}}</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th>Insurer Emirates Id File</th>
+                <td class="text-right">
+                  <a
+                    href="{{
+                      RootService.insurenceData.insurerEmiratesIdFileUrl
+                    }}"
+                    target="_blank"
+                    >{{RootService.insurenceData.insurerEmiratesIdFileUrl == null? 'noData': 'View'}}</a
+                  >
+                </td>
+              </tr>
+              <tr>
+                <th>Car Registration Card File</th>
+                <td class="text-right">
+                  <a
+                    href="{{
+                      RootService.insurenceData.carRegistrationCardFileUrl
+                    }}"
+                    target="_blank"
+                    > {{RootService.insurenceData.carRegistrationCardFileUrl == null? 'noData': 'View'}}</a
+                  >
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

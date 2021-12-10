@@ -1,0 +1,104 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12" *ngIf="tableSchema['mainschema'].length > 0 ">
+        <div class="card">
+          <div class="card-header">
+            {{pageTitle}}
+
+
+            <div class="card-header-actions" style="height: 21px;">
+                <button *ngIf="tableSchema['roleMasterPrm'].create==true" pButton class="btn btn-block btn-primary" (click)="createNew()" label="Create New" type="button" icon="pi pi-plus" iconPos="left"></button>
+            </div>
+
+            <!--<div class="card-header-actions" style="height: 21px;" *ngIf="this.service['ImportCSV']">
+                <button pButton class="btn btn-block btn-primary" (click)="import()" label="Import" type="button" icon="pi pi-upload" iconPos="left"></button>
+            </div>-->
+          </div>
+          <div class="card-body datatable">
+            <app-datatable #table [tableData]="virtualdata" [tableSchema]="tableSchema" (onclickEvent)="onclickEvent($event)"></app-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<p-dialog header="New {{pageTitle}}"  [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <app-form #Form [formData]="FormData"  [type]="''" (onclickEvent)="onclickEventForm($event)"></app-form>
+
+    <p-footer *ngIf="OtherOptions.ShowImport && OtherOptions.ShowImport == true">
+      <button pButton class="btn btn-block btn-primary float-right" (click)="import()" label="Import" type="button" icon="pi pi-upload" iconPos="left"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Import {{pageTitle}}"  [(visible)]="displayDialog2" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <ngx-file-drop *ngIf="headersRow.length == 0" dropZoneLabel="Drop CSV files here" (onFileDrop)="dropped($event)"  (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" accept=".csv">
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+          <a href="javascript:void(0)" (click)="openFileSelector()">Drag and Drop Your CSV File Or Click Here..</a>
+        </ng-template>
+    </ngx-file-drop>
+    <p *ngIf="headersRow.length == 0" class="text-center"><a (click)="dowldDemoCSV()" href="javascript:void(0)">Download Demo File</a></p>
+
+    <div class="row" style="margin-top: 15px;" *ngIf="headersRow.length > 0">
+      <div class="col-md-12">
+        <h5 class="text-center">Please Select the Following Field With CSV Header</h5>
+        <table class="table table-bordered" style="max-width: 80vw;  margin: 0 auto;">
+          <tr>
+            <th>Heading</th>
+            <th>CSV Header</th>
+            <th>Default Value</th>
+          </tr>
+          <tr *ngFor="let item of FormData" >
+            <ng-container  *ngIf="item.Fieldname != 'submitbutton'">
+              <th>{{item.Label}} <span *ngIf="item.Required == true">*</span></th>
+              <td>
+                <p-dropdown placeholder="Select From List" [options]="headersRow" [filter]="true" filterBy="name" [showClear]="true"  [(ngModel)]="item.csvheader" optionLabel="name" optionValue="code"></p-dropdown>
+              </td>
+              <td>
+                <div *ngIf="item.Fieldname !== 'dropdown' && item.Fieldname !== 'inputswitch'">
+                  <input type="text" style="width: 100%;" pInputText [(ngModel)]="item.defaultValue"/>
+                </div>
+                <div *ngIf="item.Fieldname == 'dropdown'">
+                  <p-dropdown  [group]="item.group" [(ngModel)]="item.defaultValue"  [options]="item.Options"  optionLabel="{{item.optlable}}" optionValue="{{item.optCode}}" [filter]="item.filter" [showClear]="item.showclear" placeholder="Select From List"></p-dropdown>
+                </div>
+                <div *ngIf="item.Fieldname == 'inputswitch'">
+                  <p-inputSwitch [(ngModel)]="item.defaultValue"></p-inputSwitch>
+                </div>
+              </td>
+            </ng-container >
+           </tr>
+        </table>
+
+      </div>
+    </div>
+    <p-footer>
+      <button pButton class="btn btn-block btn-error float-right" (click)="reset()" label="Reset" type="button" icon="pi pi-replay" iconPos="left"></button>
+      <button pButton class="btn btn-block btn-primary float-right" (click)="importcsv()" label="Import" type="button" icon="pi pi-upload" iconPos="left"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="View {{pageTitle}}"  [(visible)]="displayView" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+
+    <table class="table table-bordered">
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+      </tr>
+      <tr *ngFor="let item of FormData">
+        <ng-container  *ngIf="item.Fieldname!='submitbutton'">
+          <th>{{item.Label}}</th>
+          <td *ngIf="item.Fieldname!='upload'">{{viewData[item.DBColName]}}</td>
+          <td *ngIf="item.Fieldname=='upload'">
+            <a href="{{viewData[item.DBColName]}}" target="_blank">View</a>
+          </td>
+        </ng-container>
+      </tr>
+    </table>
+
+</p-dialog>
+
+<p-toast position="top-center"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

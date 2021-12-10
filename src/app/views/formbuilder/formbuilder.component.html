@@ -1,0 +1,29 @@
+<div class="animated fadeIn" >
+    <div class="row" cdkDropListGroup>
+      <div class="col-md-2">
+        <div class="card zero-padd">
+          <div class="card-body">
+            <div  cdkDropList class="example-list"  #todoList="cdkDropList" [cdkDropListData]="formItems" [cdkDropListConnectedTo]="[doneList]">
+                <div  class="form-container-box md-4 w-100 btn btn-success" (click)="submitDesign()">
+                  Submit Form Design
+                </div>
+                <div  class="form-container-box md-4 example-box" *ngFor="let item of formItems" cdkDrag>
+                  <i class="fa {{item.icon}} fa-lg mr-4 "></i> {{item.FieldLable}}
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-10">
+            <div cdkDropList [cdkDropListData]="done" class="example-list f" (cdkDropListDropped)="drop($event)">
+              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+              <app-form #Form [formData]="done" [type]="'draganddrop'" (onclickEvent)="onclickEvent($event)"></app-form>
+            </div>
+      </div>
+
+    </div>
+  </div>
+  <p-toast position="top-center"></p-toast>
+
+  

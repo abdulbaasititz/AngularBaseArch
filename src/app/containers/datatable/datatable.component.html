@@ -1,0 +1,85 @@
+<p-table p-treeTable  id="table" #dt1 [columns]="_selectedColumns" [resizableColumns]="true" columnResizeMode="expand"  [value]="tableData" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50,100]" [loading]="loading" styleClass="p-datatable-gridlines  p-datatable-responsive-demo"
+[paginator]="true" [reorderableColumns]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [totalRecords]="totalRecords"
+[globalFilterFields]="filters"  [lazy]="true"   (onLazyLoad)="loadCustomers($event)" [loading]="loading" selectionMode="multiple" [(selection)]="selectedProducts" [sortField]="tableSchema['groupID']">
+
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex">
+                <button type="button"  pButton pRipple icon="pi pi-file-o" (click)="dt1.exportCSV()" class="p-button-outlined p-mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>
+                <button type="button"  pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-outlined p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button>
+                <!--<button type="button"  pButton pRipple icon="pi pi-file-pdf" (click)="exportPdf()" class="p-button-outlined p-mr-2" pTooltip="PDF" tooltipPosition="bottom"></button>-->
+                <button type="button"  pButton pRipple icon="pi pi-filter" (click)="dt1.exportCSV({selectionOnly:true})" class="p-button-outlined p-mr-2" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+                <button type="button"  pButton pRipple icon="pi pi-filter" (click)="refreshTable()" class="p-button-outlined p-mr-2" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+
+                <button pButton label="Clear" class="p-button-outlined p-ml-auto" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+                <button *ngIf="OtherOptions?.ShowDeleteAll && OtherOptions?.ShowDeleteAll == true" pButton [disabled]="checkDisableDelete()" label="Delete Selected" class="p-button-outlined" icon="pi pi-trash" (click)="deleteSelected()"></button>
+                <span class="p-input-icon-left p-ml-2">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt1.filterGlobal(returnvalue($event), 'contains')" placeholder="Search keyword" />
+                </span>
+
+                <p-multiSelect style="margin-left:10px" [options]="mainSchemae" [(ngModel)]="_selectedColumns" optionLabel="header"
+                        selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns"></p-multiSelect>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngIf="OtherOptions?.ShowDeleteAll && OtherOptions?.ShowDeleteAll == true" style="width: 55px; text-align: center;">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th style="width:55px; text-align: center;" pResizableColumn>
+                    #
+                </th>
+                <th pResizableColumn *ngFor="let col of columns" pReorderableColumn [style.width]="col.width"  pSortableColumn="{{col.field}}" >
+                    <div class="p-d-flex p-jc-between p-ai-center">
+                        <span class="tbl-hdr">{{col.header}}</span>
+                        <div class="p-d-flex fdc">
+                            <p-sortIcon  field="code"></p-sortIcon>
+                            <!--<p-columnFilter *ngIf="col.type != 'status'" type="{{col.type}}"  field="{{col.field}}" display="menu" ></p-columnFilter>
+
+                            <p-columnFilter *ngIf="col.type == 'status'" field="{{col.field}}" matchMode="equals" display="menu">
+                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                    <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                        <ng-template let-option pTemplate="item">
+                                            <span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
+                                        </ng-template>
+                                    </p-dropdown>
+                                </ng-template>
+                            </p-columnFilter>-->
+                        </div>
+                    </div>
+                </th>
+                <th class="text-center"><span class="tbl-hdr">
+                    <i class="pi pi-cog"></i>
+                </span></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-i="rowIndex" let-rowNode let-rowData let-columns="columns">
+            <tr [pReorderableRow]="i">
+                <td *ngIf="OtherOptions?.ShowDeleteAll && OtherOptions?.ShowDeleteAll == true">
+                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td class="text-left" >
+                    {{i+1}}
+                </td>
+                <td *ngFor="let col of columns" [style.width]="col.width" [ngClass]="{'text-center': col.type == 'status'}">
+                    <span *ngIf="col.type == 'text'">{{ rowData[col.field] }}</span>
+                    <span *ngIf="col.type == 'date'">{{ rowData[col.field] | date: 'dd/MM/yyyy' }}</span>
+                    <span *ngIf="col.type == 'image'">
+                        <p-image [src]="rowData[col.field]" alt="Image" width="50" [preview]="true"></p-image>
+                    </span>
+                    <span *ngIf="col.type == 'status'" class="badge {{rowData[col.field]}}" [ngClass]="{'badge-success': rowData[col.field] == true, 'badge-danger': rowData[col.field] !== true}">{{ rowData[col.field]==true?'Active':'Inactive' }}</span>
+                </td>
+                <td style="text-align:center;">
+                    <div style="display:contents" *ngFor="let btn of buttonSchema">
+                        <button   *ngIf="(btn?.action == 'edit' && roleMasterPrm?.update == true)||(btn?.action == 'delete' && roleMasterPrm?.delete == true) || (btn?.action != 'delete' && btn?.action != 'edit')"  (click)="onClickEvent(rowData, btn?.action)" pButton pRipple type="button" pTooltip="{{btn?.tooltip}}" icon="pi {{btn?.icon}}" class="p-button-rounded p-button-text"></button>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td [attr.colspan]="mainSchema.length + 2">No Data found.</td>
+            </tr>
+        </ng-template>
+    </p-table>

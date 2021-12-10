@@ -1,0 +1,12 @@
+{
+   "success":1,
+   "data":[
+      {
+         "json":"{\"PlaceHolder\":\"Parent\",\"ErrorTxt\":\"\",\"ID\":\"\",\"Class\":\"\",\"Required\":false,\"HelpTxt\":\"\",\"functionName\":\"\",\"OptionsURL\":\"/module/selectparent\",\"Option\":[],\"optlable\":\"name\",\"optCode\":\"code\",\"filter\":true,\"showclear\":true,\"Options\":[{\"code\":1,\"name\":\"Settings\"},{\"code\":3,\"name\":\"Dashboard\"}],\"FieldLable\":\"Drop Down\",\"Fieldname\":\"dropdown\",\"size\":{\"name\":\"6\",\"code\":6},\"FormId\":\"8c4n20\",\"DBColName\":\"PARENTID\",\"icon\":\"fa-caret-square-o-down\",\"Label\":\"Parent\"}"
+      },
+      {
+         "json":"{\"FormId\":\"nj758k1\",\"FieldLable\":\"Text Field\",\"Fieldname\":\"inputtext\",\"icon\":\"fa-text-width\",\"size\":{\"name\":\"6\",\"code\":6},\"DBColName\":\"MODULENAME\",\"Label\":\"Module Name\",\"PlaceHolder\":\"Module Name\",\"ErrorTxt\":\"\",\"ID\":\"\",\"Class\":\"\",\"Required\":true,\"HelpTxt\":\"\",\"pKeyFilter\":{\"name\":\"All\",\"code\":\"all\"},\"pKeyFilterOther\":\"\",\"functionName\":\"\"}"
+      },
+      
+   ]
+}

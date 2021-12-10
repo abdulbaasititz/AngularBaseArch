@@ -1,0 +1,31 @@
+{
+   "success":1,
+   "data":[
+      {
+         "id":2,
+         "module_id":5,
+         "icon":"pi-pencil",
+         "tooltip":"Edit Module",
+         "action":"edit",
+         "status":1,
+         "crby":1,
+         "crat":"2021-06-08T13:09:11.000Z",
+         "udat":"2021-06-10T07:25:39.000Z",
+         "createdby":"Shazvan Hanif",
+         "statustext":"Active"
+      },
+      {
+         "id":3,
+         "module_id":5,
+         "icon":"pi-trash",
+         "tooltip":"Delete Module",
+         "action":"delete",
+         "status":1,
+         "crby":1,
+         "crat":"2021-06-08T13:09:11.000Z",
+         "udat":"2021-06-08T13:48:03.000Z",
+         "createdby":"Shazvan Hanif",
+         "statustext":"Active"
+      },
+   ]
+}

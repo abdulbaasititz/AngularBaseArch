@@ -1,0 +1,45 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12" *ngIf="tableSchema['mainschema'].length > 0 && tableSchema['buttonSchema'].length > 0">
+        <div class="card">
+          <div class="card-header">
+            Table Data
+
+            <div class="card-header-actions" style="height: 21px;">
+                <button pButton class="btn btn-block btn-primary" (click)="createNew()" label="Create New" type="button" icon="pi pi-plus" iconPos="left"></button>
+            </div>
+          </div>
+          <div class="card-body datatable">
+            <app-datatable  [tableData]="virtualdata" [tableSchema]="tableSchema" (onclickEvent)="onclickEvent($event)"></app-datatable>
+          </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+              Button Data
+
+              <div class="card-header-actions" style="height: 21px;">
+                  <button pButton class="btn btn-block btn-primary" (click)="createNew2()" label="Create New" type="button" icon="pi pi-plus" iconPos="left"></button>
+              </div>
+            </div>
+            <div class="card-body datatable">
+              <app-datatable  [tableData]="virtualdata2" [tableSchema]="tableSchema2" (onclickEvent)="onclickEvent($event)"></app-datatable>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+<p-dialog header="{{pageTitle}}"  [(visible)]="displayDialog" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <app-form #Form [formData]="FormData"  [type]="''" (onclickEvent)="onclickEventForm($event)"></app-form>
+</p-dialog>
+
+<p-dialog header="{{pageTitle}}" [(visible)]="displayDialog2" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [baseZIndex]="10000"
+    [draggable]="false" [resizable]="false">
+    <app-form #Form2 [formData]="FormData2"  [type]="''" (onclickEvent)="onclickEventForm($event)"></app-form>
+</p-dialog>
+
+<p-toast position="top-center"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

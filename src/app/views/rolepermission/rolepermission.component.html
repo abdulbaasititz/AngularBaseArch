@@ -1,0 +1,69 @@
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Role Permission
+
+            <div class="card-header-actions" style="height: 21px;">
+                <button pButton (click)="Update()" class="btn btn-block btn-primary" label="Save" type="button" icon="pi pi-plus" iconPos="left"></button>
+            </div>
+          </div>
+          <div class="card-body datatable">
+            <div class="pad-15">
+                <!--<table class="table table-bordered" *ngFor="let item of roleData;">
+                    <tr>
+                        <th colspan="2"><h4>{{item.MODULENAME}}</h4></th>
+                        <th colspan="3"><p-inputSwitch [(ngModel)]="item.READ_S"></p-inputSwitch></th>
+                    </tr>
+                    <tr>
+                        <th width=500>Menu Name</th>
+                        <th>Create</th>
+                        <th>Read</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    <tr *ngFor="let child of item.children;">
+                        <td width=500>{{child.MODULENAME}}</td>
+                        <td><p-inputSwitch [(ngModel)]="child.CREATE_S"></p-inputSwitch></td>
+                        <td><p-inputSwitch [(ngModel)]="child.READ_S"></p-inputSwitch></td>
+                        <td><p-inputSwitch [(ngModel)]="child.UPDATE_S"></p-inputSwitch></td>
+                        <td><p-inputSwitch [(ngModel)]="child.DELETE_S"></p-inputSwitch></td>
+                    </tr>
+                </table>-->
+
+                <p-treeTable [value]="roleData" [resizableColumns]="true" columnResizeMode="expand">
+                  <ng-template pTemplate="header">
+                      <tr>
+                          <th>Menu Name</th>
+                          <th>Create</th>
+                          <th>Read</th>
+                          <th>Update</th>
+                          <th>Delete</th>
+                      </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowNode let-rowData >
+                      <tr>
+                          <td>
+                              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                              {{rowData.node.name}}
+                          </td>
+                          <td><p-inputSwitch (onChange)="handleChange(rowData.node, 'doCreate')" [(ngModel)]="rowData.node.doCreate"></p-inputSwitch></td>
+                          <td><p-inputSwitch (onChange)="handleChange(rowData.node, 'doRead')" [(ngModel)]="rowData.node.doRead"></p-inputSwitch></td>
+                          <td><p-inputSwitch (onChange)="handleChange(rowData.node, 'doUpdate')" [(ngModel)]="rowData.node.doUpdate"></p-inputSwitch></td>
+                          <td><p-inputSwitch (onChange)="handleChange(rowData.node, 'doDelete')" [(ngModel)]="rowData.node.doDelete"></p-inputSwitch></td>
+                      </tr>
+                  </ng-template>
+              </p-treeTable>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+
+<p-toast position="top-center"></p-toast>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

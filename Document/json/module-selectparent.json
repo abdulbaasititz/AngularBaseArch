@@ -1,0 +1,17 @@
+{
+   "success":1,
+   "data":[
+      {
+         "code":1,
+         "name":"Settings"
+      },
+      {
+         "code":3,
+         "name":"Dashboard"
+      },
+      {
+         "code":20,
+         "name":"Accounting"
+      },
+   ]
+}

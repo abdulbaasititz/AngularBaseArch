@@ -1,0 +1,340 @@
+<div class="container-fluid">
+    <form class="row" [formGroup]="angForm" novalidate>
+        <div *ngFor="let fData of formData" class="col-sm-{{fData.size?.code}} mt-3" cdkDrag>
+            <!--inputtext-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'inputtext'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <input *ngIf="fData.pKeyFilter?.code != 'all'"  (input)="onClickEvent($event, fData.functionName)" id="{{fData.ID}}" class="{{fData.Class}} p-inputtext p-component" type="text" maxlength="{{fData.MaxTextLength}}" pKeyFilter="{{fData.pKeyFilter?.code != 'other'? fData.pKeyFilter?.code : returnregex(fData.pKeyFilterOther) }}"  pInputText placeholder="{{fData.PlaceHolder}}"  formControlName="{{fData?.DBColName}}"/>
+                <input *ngIf="fData.pKeyFilter?.code == 'all'"  (input)="onClickEvent($event, fData.functionName)" id="{{fData.ID}}" class="{{fData.Class}} p-inputtext p-component" type="text" maxlength="{{fData.MaxTextLength}}" pInputText placeholder="{{fData.PlaceHolder}}"  formControlName="{{fData?.DBColName}}"/>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--inputtext-->
+
+             <!--inputpassword-->
+             <div class="p-field" *ngIf="fData.Fieldname == 'inputpassword'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-password [toggleMask]="true" (input)="onClickEvent($event, fData.functionName)" id="{{fData.ID}}" class="{{fData.Class}}" formControlName="{{fData?.DBColName}}">
+                    <ng-template pTemplate="header">
+                        <h6>{{fData.Label}}</h6>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <p-divider></p-divider>
+                        <p class="p-mt-2">Suggestions</p>
+                        <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
+                            <li>At least one lowercase</li>
+                            <li>At least one uppercase</li>
+                            <li>At least one numeric</li>
+                            <li>Minimum 8 characters</li>
+                        </ul>
+                    </ng-template>
+                </p-password>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--inputpassword-->
+
+            <!--dropdown-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'dropdown'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-dropdown (onChange)="onClickEvent($event, fData.functionName)" [group]="fData.group" formControlName="{{fData?.DBColName}}" id="{{fData.ID}}" class="{{fData.Class}}" [options]="fData.Options"  optionLabel="{{fData.optlable}}" optionValue="{{fData.optCode}}" [filter]="fData.filter" [showClear]="fData.showclear" placeholder="Select From List">
+                    <ng-template let-group pTemplate="group" *ngIf="fData.group == true">
+                        <div class="p-d-flex p-ai-center">
+                             <span>{{group.label}}</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--dropdown-->
+
+             <!--multiselect-->
+             <div class="p-field" *ngIf="fData.Fieldname == 'multiselect'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-multiSelect  (onChange)="onClickEvent($event, fData.functionName)" formControlName="{{fData?.DBColName}}" id="{{fData.ID}}" class="{{fData.Class}}" [options]="fData.Options"  optionLabel="{{fData.optlable}}" optionValue="{{fData.optCode}}" [filter]="fData.filter" [showClear]="fData.showclear" placeholder="{{fData.PlaceHolder}}"></p-multiSelect>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--multiselect-->
+
+            <!--inputswitch-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'inputswitch'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-inputSwitch (onChange)="onClickEvent($event, fData.functionName)" formControlName="{{fData?.DBColName}}" id="{{fData.ID}}" class="{{fData.Class}}"></p-inputSwitch>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--inputswitch-->
+
+            <!--textarea-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'textarea'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <textarea maxlength="{{fData.MaxTextLength}}" placeholder="{{fData.PlaceHolder}}" [disabled]="disabled" formControlName="{{fData?.DBColName}}" (input)="onClickEvent($event, fData.functionName)" id="{{fData.ID}}" class="{{fData.Class}}" [rows]="fData.row" [cols]="fData.col" pInputTextarea autoResize="autoResize"></textarea>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--textarea-->
+
+            <!--calander-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'calander'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-calendar view="{{fData.view}}" yearRange="2021:2023" [yearNavigator]="fData.yearNavigator" dateFormat="{{fData.dateformat}}" [showTime]="fData.showTime" [timeOnly]="fData.timeOnly"  [readonlyInput]="true" formControlName="{{fData?.DBColName}}" id="{{fData.ID}}" class="{{fData.Class}}"></p-calendar>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--calander-->
+
+            <!--editor-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'editor'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-editor [style]="{'height':'320px'}" formControlName="{{fData?.DBColName}}" id="{{fData.ID}}" class="{{fData.Class}}"></p-editor>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--editor-->
+
+            <!--upload-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'upload'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <label for="{{fData.ID}}">{{fData.Label}}</label>
+                <p-fileUpload accept="{{fData.accept}}"  name="myfile[]"  [maxFileSize]="fData.maxsize" (onSelect)="onFileChange($event, fData.DBColName)" [auto]="true"></p-fileUpload>
+                <small *ngIf="fData.HelpTxt!==''" id="{{fData.ID}}-hlp">{{fData.HelpTxt}}</small>
+
+                <div *ngIf="angForm.controls[fData?.DBColName] && (angForm.controls[fData?.DBColName].dirty || angForm.controls[fData?.DBColName].touched)" class="danger-text">
+                    <div *ngIf="angForm.controls[fData?.DBColName].errors">
+                        <small class="error-msg">{{fData.ErrorTxt !== ''?fData.ErrorTxt:'Please Enter ' + fData.Label}}</small>
+                    </div>
+                </div>
+            </div>
+            <!--upload-->
+
+            <!--submitbutton-->
+            <div class="p-field" *ngIf="fData.Fieldname == 'submitbutton'" [ngClass]="{'disable': fData?.Disabled === true, 'edit': editScreen === true, 'force-disable': fData?.ForceDisabled === true}">
+                <p class="form-buttons" *ngIf="type == 'draganddrop'">
+                    <i (click)="editFormItem(fData)" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <i (click)="removeFormItem(fData)" class="fa fa-times" aria-hidden="true"></i>
+                </p>
+                <p-button (click)="onClickEvent(angForm.value, fData.functionName)" pRipple class="{{fData.Class}}" id="{{fData.ID}}" [disabled]="!angForm.valid" label="{{fData.Label}}" icon="{{fData.LabelIcon}}" iconPos="left"></p-button>
+            </div>
+            <!--submitbutton-->
+
+        </div>
+    </form>
+</div>
+
+
+<p-confirmPopup></p-confirmPopup>
+
+<p-sidebar [(visible)]="display" position="right"  [style]="{width:'50em'}">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('pKeyFilter')">
+                <label>Input Type</label>
+                <p-dropdown [options]="pKeyFilterOptions" [(ngModel)]="selectedItem.pKeyFilter" (ngModelChange)="updateAngForm()" optionLabel="name"></p-dropdown>
+                <input class="mt-1" type="text" *ngIf="selectedItem.pKeyFilter?.code == 'other'" pInputText [(ngModel)]="selectedItem.pKeyFilterOther" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('accept')">
+                <label>Accept</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.accept" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('maxsize')">
+                <label>Maximum Size</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.maxsize" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('size')">
+                <label>Column Size</label>
+                <p-dropdown [options]="pcolOptions" [(ngModel)]="selectedItem.size" (ngModelChange)="updateAngForm()" optionLabel="name"></p-dropdown>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('Label')">
+                <label>Label</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.Label" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('PlaceHolder')">
+                <label>Placeholder</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.PlaceHolder" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('HelpTxt')">
+                <label>Help Text</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.HelpTxt" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('DBColName')">
+                <label>DB Column Name</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.DBColName" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('ID')">
+                <label>ID</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.ID" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('Class')">
+                <label>Class</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.Class" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('Required')">
+                <label>Required</label>
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="selectedItem.Required" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">{{selectedItem.Required}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('Disabled')">
+              <label>Disabled on Edit</label>
+              <div class="p-field-checkbox">
+                  <p-checkbox [(ngModel)]="selectedItem.Disabled" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                  <label for="binary">{{selectedItem.Disabled}}</label>
+              </div>
+          </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('showTime')">
+                <label>Show Time</label>
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="selectedItem.showTime" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">{{selectedItem.showTime}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('timeOnly')">
+                <label>Time Only</label>
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="selectedItem.timeOnly" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">{{selectedItem.timeOnly}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('dateformat')">
+                <label>Date Format</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.dateformat" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('ErrorTxt')">
+                <label>Error Text</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.ErrorTxt" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('functionName')">
+                <label>Input Function</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.functionName" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('LabelIcon')">
+                <label>Icon</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.LabelIcon" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('OptionsURL')">
+                <label>Option URL</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.OptionsURL" (focusout)="updateOptionbyurl(selectedItem)"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('Option')">
+                <label>Options (seperate with comma)</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.Option" (focusout)="updateOption(selectedItem)"/>
+            </div>
+
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('optlable')">
+                <label>Option Lable</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.optlable" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('optCode')">
+                <label>Option Code</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.optCode" (ngModelChange)="updateAngForm()"/>
+            </div>
+
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('MaxTextLength')">
+                <label>Max Text Length</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.MaxTextLength" (ngModelChange)="updateAngForm()"/>
+            </div>
+
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('row')">
+                <label>Rows</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.row" (ngModelChange)="updateAngForm()"/>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('col')">
+                <label>Columns</label>
+                <input type="text" pInputText [(ngModel)]="selectedItem.col" (ngModelChange)="updateAngForm()"/>
+            </div>
+
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('filter')">
+                <label>Filter</label>
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="selectedItem.filter" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">{{selectedItem.filter}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 mt-2" *ngIf="selectedItem.hasOwnProperty('showclear')">
+                <label>Show Clear</label>
+                <div class="p-field-checkbox">
+                    <p-checkbox [(ngModel)]="selectedItem.showclear" (ngModelChange)="updateAngForm()" binary="true" inputId="binary"></p-checkbox>
+                    <label for="binary">{{selectedItem.showclear}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-sidebar>

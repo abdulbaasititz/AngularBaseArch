@@ -1,0 +1,22 @@
+{
+    "success":1,
+    "data":[
+       {
+          "name":"Dashboard",
+          "ID":3,
+          "PARENTID":0,
+          "parent":0,
+          "url":"/dashboard",
+          "icon":"icon-speedometer"
+       },
+       
+       {
+          "name":"Department",
+          "ID":29,
+          "PARENTID":0,
+          "parent":0,
+          "url":"/masterwindow",
+          "icon":"cil-command"
+       }
+    ]
+ }
